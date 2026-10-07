@@ -1,0 +1,2714 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Samarth Gaikwad — AI / Data / Design</title>
+
+<meta name="description"
+      content="Samarth Gaikwad — AI, Data Science, Machine Learning, Data Analytics, Privacy and Design.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --bg: #f5f2eb;
+    --ink: #10100f;
+    --muted: #6c6962;
+    --line: #d8d3c8;
+    --card: #ebe7de;
+
+    --orange: #ff4d22;
+    --lime: #d9ff3f;
+
+    --white: #fffdf8;
+
+    --max: 1240px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+::selection {
+    background: var(--ink);
+    color: var(--lime);
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.container {
+    width: min(var(--max), calc(100% - 56px));
+    margin: auto;
+}
+
+.mono {
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+}
+
+.eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--orange);
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   NOISE
+========================================================= */
+
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+    opacity: .045;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.cursor {
+    position: fixed;
+
+    width: 14px;
+    height: 14px;
+
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+
+    pointer-events: none;
+    z-index: 50;
+
+    transform: translate(-50%, -50%);
+
+    transition:
+        width .2s,
+        height .2s,
+        background .2s;
+}
+
+.cursor.active {
+    width: 48px;
+    height: 48px;
+
+    background: var(--lime);
+    border-color: var(--lime);
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 30;
+
+    mix-blend-mode: multiply;
+}
+
+.nav-inner {
+    width: min(var(--max), calc(100% - 56px));
+
+    margin: 18px auto 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    font-size: 17px;
+
+    letter-spacing: -.04em;
+}
+
+.logo span {
+    color: var(--orange);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+}
+
+.nav-links a {
+    font-size: 13px;
+
+    color: #3f3d39;
+
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -5px;
+
+    width: 0;
+    height: 1px;
+
+    background: var(--ink);
+
+    transition: .3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-cta {
+    background: var(--ink);
+    color: var(--white);
+
+    padding: 11px 17px;
+
+    border-radius: 99px;
+}
+
+.nav-cta:hover {
+    background: var(--orange);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 100svh;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding: 150px 0 72px;
+
+    position: relative;
+}
+
+.hero-grid {
+    display: grid;
+
+    grid-template-columns: 1.1fr .9fr;
+
+    gap: 60px;
+
+    width: 100%;
+
+    align-items: end;
+}
+
+.hero h1 {
+    font-family: "Space Grotesk";
+
+    font-weight: 600;
+
+    font-size: clamp(72px, 10.5vw, 154px);
+
+    line-height: .82;
+
+    letter-spacing: -.075em;
+
+    max-width: 900px;
+}
+
+.hero h1 .outline {
+    color: transparent;
+
+    -webkit-text-stroke: 1.5px var(--ink);
+}
+
+.hero-side {
+    padding-bottom: 8px;
+
+    max-width: 390px;
+}
+
+.hero-side p {
+    font-size: 19px;
+
+    line-height: 1.45;
+
+    letter-spacing: -.02em;
+
+    margin: 24px 0 30px;
+}
+
+.hero-actions {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.pill {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 13px 18px;
+
+    border: 1px solid var(--ink);
+
+    border-radius: 999px;
+
+    font-size: 13px;
+
+    transition: .3s;
+}
+
+.pill.dark {
+    background: var(--ink);
+
+    color: var(--white);
+}
+
+.pill:hover {
+    transform: translateY(-3px);
+
+    background: var(--orange);
+
+    border-color: var(--orange);
+
+    color: white;
+}
+
+.hero-meta {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 22px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee-wrap {
+    overflow: hidden;
+
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.marquee {
+    display: flex;
+
+    width: max-content;
+
+    animation: marquee 22s linear infinite;
+}
+
+.marquee span {
+    font-family: "DM Mono";
+
+    font-size: 18px;
+
+    padding: 20px 30px;
+
+    border-right: 1px solid var(--line);
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+.marquee b {
+    color: var(--orange);
+
+    font-weight: 500;
+}
+
+@keyframes marquee {
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section {
+    padding: 150px 0;
+}
+
+.section-head {
+    display: grid;
+
+    grid-template-columns: 1fr 2fr;
+
+    gap: 40px;
+
+    margin-bottom: 70px;
+}
+
+.section-head h2 {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: clamp(48px, 6vw, 82px);
+
+    line-height: .92;
+
+    letter-spacing: -.065em;
+
+    max-width: 800px;
+}
+
+.section-intro {
+    max-width: 470px;
+
+    color: var(--muted);
+
+    font-size: 17px;
+
+    line-height: 1.55;
+
+    padding-top: 9px;
+}
+
+
+/* =========================================================
+   WORK
+========================================================= */
+
+.work-list {
+    border-top: 1px solid var(--ink);
+}
+
+.work {
+    display: grid;
+
+    grid-template-columns: 90px 1fr 270px;
+
+    gap: 30px;
+
+    padding: 34px 0;
+
+    border-bottom: 1px solid var(--line);
+
+    transition: .35s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.work::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: var(--ink);
+
+    transform: translateY(100%);
+
+    transition: .45s;
+
+    z-index: -1;
+}
+
+.work:hover {
+    color: var(--white);
+
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.work:hover::before {
+    transform: translateY(0);
+}
+
+.work-num {
+    color: var(--muted);
+
+    padding-top: 7px;
+}
+
+.work:hover .work-num,
+.work:hover .work-tags {
+    color: #aaa;
+}
+
+.work-title {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: clamp(30px, 4vw, 57px);
+
+    line-height: .95;
+
+    letter-spacing: -.05em;
+}
+
+.work-sub {
+    margin-top: 10px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.work-tags {
+    align-self: center;
+
+    color: var(--muted);
+
+    font-family: "DM Mono";
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    text-transform: uppercase;
+}
+
+.arrow {
+    font-size: 22px;
+
+    opacity: 0;
+
+    transform: translateX(-10px);
+
+    transition: .3s;
+}
+
+.work:hover .arrow {
+    opacity: 1;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   FEATURED PROJECT
+========================================================= */
+
+.feature {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    min-height: 620px;
+
+    background: var(--ink);
+
+    color: var(--white);
+
+    border-radius: 24px;
+
+    overflow: hidden;
+}
+
+.feature-copy {
+    padding: 64px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+.feature-copy h3 {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: clamp(42px, 5vw, 76px);
+
+    line-height: .9;
+
+    letter-spacing: -.065em;
+
+    max-width: 600px;
+}
+
+.feature-copy p {
+    max-width: 450px;
+
+    color: #aaa;
+
+    line-height: 1.55;
+
+    margin-top: 20px;
+}
+
+.feature-art {
+    position: relative;
+
+    overflow: hidden;
+
+    background: #171713;
+
+    min-height: 500px;
+}
+
+.grid-art {
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px);
+
+    background-size: 46px 46px;
+}
+
+.orb {
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    border-radius: 50%;
+
+    background: var(--orange);
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    animation: float 5s ease-in-out infinite;
+
+    box-shadow:
+        0 0 100px rgba(255,77,34,.25);
+}
+
+.orb::before,
+.orb::after {
+    content: "";
+
+    position: absolute;
+
+    border: 1px solid rgba(255,255,255,.5);
+
+    border-radius: 50%;
+
+    inset: -50px;
+
+    transform: rotate(20deg);
+}
+
+.orb::after {
+    inset: -95px;
+
+    transform: rotate(-20deg);
+}
+
+@keyframes float {
+
+    50% {
+        transform:
+            translate(-50%, -55%)
+            scale(1.05);
+    }
+
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.service-list {
+    border-top: 1px solid var(--ink);
+}
+
+.service {
+    display: grid;
+
+    grid-template-columns: 90px 1fr 40px;
+
+    gap: 30px;
+
+    align-items: center;
+
+    padding: 34px 0;
+
+    border-bottom: 1px solid var(--line);
+
+    transition: .35s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.service::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: var(--lime);
+
+    transform: translateY(100%);
+
+    transition: .45s;
+
+    z-index: -1;
+}
+
+.service:hover {
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.service:hover::before {
+    transform: translateY(0);
+}
+
+.service-num {
+    color: var(--muted);
+}
+
+.service h3 {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: clamp(30px, 4vw, 52px);
+
+    line-height: .95;
+
+    letter-spacing: -.05em;
+}
+
+.service p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-top: 9px;
+
+    max-width: 650px;
+}
+
+.service-arrow {
+    font-size: 25px;
+
+    transition: .3s;
+}
+
+.service:hover .service-arrow {
+    transform: translate(5px, -5px);
+}
+
+.service-cta {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-top: 26px;
+
+    gap: 20px;
+
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   CAPABILITIES
+========================================================= */
+
+.capabilities {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    border-top: 1px solid var(--ink);
+}
+
+.cap {
+    min-height: 280px;
+
+    padding: 28px 24px;
+
+    border-right: 1px solid var(--line);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    transition: .3s;
+}
+
+.cap:last-child {
+    border-right: 0;
+}
+
+.cap:hover {
+    background: var(--lime);
+}
+
+.cap-num {
+    color: var(--muted);
+}
+
+.cap h3 {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: 31px;
+
+    line-height: 1;
+
+    letter-spacing: -.04em;
+}
+
+.cap p {
+    font-size: 14px;
+
+    color: var(--muted);
+
+    line-height: 1.5;
+
+    max-width: 240px;
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.experience {
+    border-top: 1px solid var(--ink);
+}
+
+.exp {
+    display: grid;
+
+    grid-template-columns: 180px 1fr 210px;
+
+    gap: 40px;
+
+    padding: 40px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.exp-company {
+    font-family: "Space Grotesk";
+
+    font-weight: 600;
+
+    font-size: 20px;
+
+    line-height: 1.1;
+
+    letter-spacing: -.03em;
+}
+
+.exp-role {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: 31px;
+
+    line-height: 1;
+
+    letter-spacing: -.04em;
+}
+
+.exp p {
+    color: var(--muted);
+
+    line-height: 1.55;
+
+    max-width: 620px;
+
+    margin-top: 15px;
+}
+
+.exp-date {
+    text-align: right;
+
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1.6fr;
+
+    gap: 70px;
+
+    align-items: start;
+}
+
+.about-big {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: clamp(42px, 5.5vw, 78px);
+
+    line-height: .92;
+
+    letter-spacing: -.065em;
+}
+
+.about-copy {
+    max-width: 590px;
+
+    font-size: 19px;
+
+    line-height: 1.6;
+
+    color: #4e4b46;
+}
+
+.about-copy p + p {
+    margin-top: 24px;
+}
+
+.links {
+    margin-top: 38px;
+
+    display: flex;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+}
+
+.links a {
+    border-bottom: 1px solid var(--ink);
+
+    padding-bottom: 4px;
+
+    font-family: "DM Mono";
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact {
+    padding: 150px 0 80px;
+
+    background: var(--ink);
+
+    color: var(--white);
+}
+
+.contact-inner {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 60px;
+}
+
+.contact h2 {
+    font-family: "Space Grotesk";
+
+    font-weight: 500;
+
+    font-size: clamp(64px, 10vw, 140px);
+
+    line-height: .8;
+
+    letter-spacing: -.08em;
+}
+
+.contact h2 span {
+    color: var(--orange);
+}
+
+.contact-right {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    align-items: flex-start;
+}
+
+.contact-right p {
+    color: #999;
+
+    max-width: 390px;
+
+    line-height: 1.55;
+
+    margin-bottom: 30px;
+}
+
+.contact .pill {
+    border-color: #777;
+
+    color: var(--white);
+}
+
+.contact .pill.dark {
+    background: var(--white);
+
+    color: var(--ink);
+
+    border-color: var(--white);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    background: var(--ink);
+
+    color: #777;
+
+    border-top: 1px solid #2c2c28;
+
+    padding: 22px 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-family: "DM Mono";
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.show {
+    opacity: 1;
+
+    transform: none;
+}
+
+.delay-1 {
+    transition-delay: .08s;
+}
+
+.delay-2 {
+    transition-delay: .16s;
+}
+
+.delay-3 {
+    transition-delay: .24s;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px) {
+
+    .container,
+    .nav-inner {
+        width: min(var(--max), calc(100% - 36px));
+    }
+
+    .nav-links a:not(.nav-cta) {
+        display: none;
+    }
+
+    .hero-grid,
+    .section-head,
+    .about-grid,
+    .contact-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 160px;
+
+        min-height: auto;
+
+        padding-bottom: 100px;
+    }
+
+    .hero h1 {
+        font-size: clamp(64px, 17vw, 120px);
+    }
+
+    .hero-side {
+        max-width: 560px;
+    }
+
+    .hero-meta {
+        position: static;
+
+        margin-top: 70px;
+    }
+
+    .section {
+        padding: 100px 0;
+    }
+
+    .section-head {
+        margin-bottom: 45px;
+    }
+
+    .work {
+        grid-template-columns: 50px 1fr 30px;
+    }
+
+    .work-tags {
+        display: none;
+    }
+
+    .feature {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-copy {
+        min-height: 500px;
+
+        padding: 38px;
+    }
+
+    .capabilities {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cap {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .cap:nth-child(2) {
+        border-right: 0;
+    }
+
+    .service {
+        grid-template-columns: 50px 1fr 30px;
+    }
+
+    .service p {
+        max-width: none;
+    }
+
+    .service-cta {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .exp {
+        grid-template-columns: 120px 1fr;
+    }
+
+    .exp-date {
+        text-align: left;
+
+        grid-column: 2;
+    }
+
+    .contact {
+        padding-top: 100px;
+    }
+
+}
+
+
+@media(max-width:560px) {
+
+    .container,
+    .nav-inner {
+        width: calc(100% - 28px);
+    }
+
+    .nav {
+        mix-blend-mode: normal;
+    }
+
+    .nav-inner {
+        margin-top: 14px;
+    }
+
+    .logo {
+        font-size: 15px;
+    }
+
+    .nav-cta {
+        padding: 9px 13px;
+    }
+
+    .hero h1 {
+        font-size: 21vw;
+    }
+
+    .hero-side p {
+        font-size: 17px;
+    }
+
+    .hero-meta {
+        font-size: 10px;
+    }
+
+    .work {
+        grid-template-columns: 35px 1fr 20px;
+
+        padding: 27px 0;
+    }
+
+    .work:hover {
+        padding-left: 10px;
+
+        padding-right: 10px;
+    }
+
+    .work-title {
+        font-size: 31px;
+    }
+
+    .feature-copy {
+        padding: 28px;
+
+        min-height: 460px;
+    }
+
+    .feature-copy h3 {
+        font-size: 45px;
+    }
+
+    .feature-art {
+        min-height: 390px;
+    }
+
+    .orb {
+        width: 210px;
+
+        height: 210px;
+    }
+
+    .capabilities {
+        grid-template-columns: 1fr;
+    }
+
+    .cap {
+        border-right: 0 !important;
+    }
+
+    .service {
+        grid-template-columns: 35px 1fr 20px;
+
+        padding: 27px 0;
+    }
+
+    .service:hover {
+        padding-left: 10px;
+
+        padding-right: 10px;
+    }
+
+    .service h3 {
+        font-size: 31px;
+    }
+
+    .exp {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .exp-date {
+        grid-column: auto;
+    }
+
+    .contact h2 {
+        font-size: 21vw;
+    }
+
+    .contact-right {
+        margin-top: 30px;
+    }
+
+    .footer {
+        gap: 10px;
+
+        flex-direction: column;
+    }
+
+    .cursor {
+        display: none;
+    }
+
+}
+
+
+@media(prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+
+        transition: none !important;
+    }
+
+    .reveal {
+        opacity: 1;
+
+        transform: none;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="noise"></div>
+
+<div class="cursor"></div>
+
+
+<!-- =======================================================
+     NAVIGATION
+======================================================= -->
+
+<nav class="nav">
+
+    <div class="nav-inner">
+
+        <a href="#" class="logo">
+            SG<span>.</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="#work">
+                Work
+            </a>
+
+            <a href="#services">
+                Services
+            </a>
+
+            <a href="#capabilities">
+                Capabilities
+            </a>
+
+            <a href="#experience">
+                Experience
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#contact" class="nav-cta">
+                Let's talk ↗
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-grid">
+
+
+            <div class="reveal">
+
+                <div class="eyebrow mono">
+                    AI / DATA / DESIGN
+                </div>
+
+
+                <h1>
+
+                    Samarth
+
+                    <br>
+
+                    <span class="outline">
+                        Gaikwad
+                    </span>
+
+                </h1>
+
+            </div>
+
+
+            <div class="hero-side reveal delay-2">
+
+                <p>
+                    I build intelligent systems from messy data —
+                    and create clear digital experiences through
+                    design, analytics and technology.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a
+                        class="pill dark"
+                        href="#work"
+                    >
+                        View selected work ↓
+                    </a>
+
+
+                    <a
+                        class="pill"
+                        href="#contact"
+                    >
+                        Let's talk ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-meta mono reveal delay-3">
+
+            <span>
+                Based in Pune, India
+            </span>
+
+            <span>
+                Scroll to explore ↓
+            </span>
+
+            <span>
+                Available for opportunities
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     MARQUEE
+======================================================= -->
+
+<div class="marquee-wrap">
+
+    <div class="marquee">
+
+        <span>
+            Machine Learning <b>✦</b>
+        </span>
+
+        <span>
+            Data Analytics <b>✦</b>
+        </span>
+
+        <span>
+            Computer Vision <b>✦</b>
+        </span>
+
+        <span>
+            AI Systems <b>✦</b>
+        </span>
+
+        <span>
+            Data Privacy <b>✦</b>
+        </span>
+
+        <span>
+            Design <b>✦</b>
+        </span>
+
+
+        <span>
+            Machine Learning <b>✦</b>
+        </span>
+
+        <span>
+            Data Analytics <b>✦</b>
+        </span>
+
+        <span>
+            Computer Vision <b>✦</b>
+        </span>
+
+        <span>
+            AI Systems <b>✦</b>
+        </span>
+
+        <span>
+            Data Privacy <b>✦</b>
+        </span>
+
+        <span>
+            Design <b>✦</b>
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
+     WORK
+======================================================= -->
+
+<section class="section" id="work">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow mono">
+                01 — Selected work
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Problems first.
+                    <br>
+                    Technology second.
+                </h2>
+
+
+                <p class="section-intro">
+
+                    A selection of projects where data,
+                    machine learning and thoughtful engineering
+                    come together to solve practical problems.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="work-list">
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    01
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        American Sign Language Detection
+                    </div>
+
+                    <div class="work-sub">
+                        Computer vision system for recognizing
+                        sign language gestures.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Python · CV · ML
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    02
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        Credit Card Fraud Detection
+                    </div>
+
+                    <div class="work-sub">
+                        Machine learning approach to identifying
+                        suspicious transactions.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Python · ML · Data
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    03
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        FIFA World Cup 2022 Dashboard
+                    </div>
+
+                    <div class="work-sub">
+                        Interactive visual analysis built to make
+                        tournament data useful at a glance.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Power BI · Analytics
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    04
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        Production Background Job Processor
+                    </div>
+
+                    <div class="work-sub">
+                        A production-oriented system for reliable
+                        background processing.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Python · Systems
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    05
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        Netflix Analysis Dashboard
+                    </div>
+
+                    <div class="work-sub">
+                        Exploring content data through visual
+                        storytelling and analysis.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Power BI · Data
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    06
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        Customer Churn Analysis
+                    </div>
+
+                    <div class="work-sub">
+                        Data analysis focused on understanding
+                        customer behavior and churn.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Analytics · SQL
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    07
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        Animal Image Classification
+                    </div>
+
+                    <div class="work-sub">
+                        Image classification project exploring
+                        computer vision workflows.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Python · CV
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+            <a class="work reveal" href="#featured">
+
+                <span class="work-num mono">
+                    08
+                </span>
+
+
+                <div>
+
+                    <div class="work-title">
+                        Thyroid Disease Detection
+                    </div>
+
+                    <div class="work-sub">
+                        Machine learning project built around
+                        classification of medical data.
+                    </div>
+
+                </div>
+
+
+                <div class="work-tags">
+                    Python · ML
+                    <span class="arrow">
+                        ↗
+                    </span>
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FEATURED PROJECT
+======================================================= -->
+
+<section
+    class="section"
+    id="featured"
+    style="padding-top:0"
+>
+
+    <div class="container">
+
+        <div class="feature reveal">
+
+
+            <div class="feature-copy">
+
+                <div>
+
+                    <div
+                        class="eyebrow mono"
+                        style="color:#aaa"
+                    >
+                        Featured project / 01
+                    </div>
+
+
+                    <h3>
+                        Turning gestures
+                        into something
+                        machines can
+                        understand.
+                    </h3>
+
+
+                    <p>
+
+                        American Sign Language Detection
+                        explores computer vision and machine
+                        learning to recognize hand gestures
+                        from visual input.
+
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="mono"
+                    style="color:#777"
+                >
+                    Python · Computer Vision · Machine Learning
+                </div>
+
+            </div>
+
+
+            <div class="feature-art">
+
+                <div class="grid-art"></div>
+
+                <div class="orb"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     SERVICES
+======================================================= -->
+
+<section class="section" id="services">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow mono">
+                02 — Services
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Design that gets
+                    <br>
+                    straight to the point.
+                </h2>
+
+
+                <p class="section-intro">
+
+                    Alongside AI and data work,
+                    I provide focused creative and web
+                    design services for people and businesses
+                    that need something clear, modern and ready to use.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="service-list">
+
+
+            <a
+                class="service reveal"
+                href="https://wa.me/917020033430"
+                target="_blank"
+                rel="noopener"
+            >
+
+                <span class="service-num mono">
+                    01
+                </span>
+
+
+                <div>
+
+                    <h3>
+                        Ads Image Creation
+                    </h3>
+
+                    <p>
+                        Scroll-stopping promotional creatives
+                        designed for campaigns, products and
+                        social media.
+                    </p>
+
+                </div>
+
+
+                <span class="service-arrow">
+                    ↗
+                </span>
+
+            </a>
+
+
+            <a
+                class="service reveal delay-1"
+                href="https://wa.me/917020033430"
+                target="_blank"
+                rel="noopener"
+            >
+
+                <span class="service-num mono">
+                    02
+                </span>
+
+
+                <div>
+
+                    <h3>
+                        Brand Logo Creation
+                    </h3>
+
+                    <p>
+                        Clean, memorable logo concepts that
+                        give a brand a stronger and more
+                        consistent identity.
+                    </p>
+
+                </div>
+
+
+                <span class="service-arrow">
+                    ↗
+                </span>
+
+            </a>
+
+
+            <a
+                class="service reveal delay-2"
+                href="https://wa.me/917020033430"
+                target="_blank"
+                rel="noopener"
+            >
+
+                <span class="service-num mono">
+                    03
+                </span>
+
+
+                <div>
+
+                    <h3>
+                        Website Design
+                    </h3>
+
+                    <p>
+                        Modern, responsive website design
+                        focused on clear communication,
+                        strong visuals and usability.
+                    </p>
+
+                </div>
+
+
+                <span class="service-arrow">
+                    ↗
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+        <div class="service-cta reveal">
+
+            <span class="mono">
+                DESIGN SERVICES · VIA WHATSAPP
+            </span>
+
+
+            <a
+                class="pill dark"
+                href="https://wa.me/917020033430"
+                target="_blank"
+                rel="noopener"
+            >
+                Chat about a project ↗
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     CAPABILITIES
+======================================================= -->
+
+<section class="section" id="capabilities">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow mono">
+                03 — Capabilities
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Useful technology,
+                    <br>
+                    not technology for show.
+                </h2>
+
+
+                <p class="section-intro">
+
+                    The work sits at the intersection of
+                    analytical thinking, machine learning and
+                    building systems that can actually be used.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="capabilities">
+
+
+            <article class="cap reveal">
+
+                <span class="cap-num mono">
+                    01
+                </span>
+
+                <h3>
+                    Machine
+                    <br>
+                    Learning
+                </h3>
+
+                <p>
+                    Classification, prediction and applied
+                    ML workflows using Python.
+                </p>
+
+            </article>
+
+
+            <article class="cap reveal delay-1">
+
+                <span class="cap-num mono">
+                    02
+                </span>
+
+                <h3>
+                    Data &
+                    <br>
+                    Analytics
+                </h3>
+
+                <p>
+                    SQL, analysis and visual storytelling
+                    that turns data into decisions.
+                </p>
+
+            </article>
+
+
+            <article class="cap reveal delay-2">
+
+                <span class="cap-num mono">
+                    03
+                </span>
+
+                <h3>
+                    Computer
+                    <br>
+                    Vision
+                </h3>
+
+                <p>
+                    Image-based problems, recognition
+                    and practical vision systems.
+                </p>
+
+            </article>
+
+
+            <article class="cap reveal delay-3">
+
+                <span class="cap-num mono">
+                    04
+                </span>
+
+                <h3>
+                    Privacy &
+                    <br>
+                    AI Systems
+                </h3>
+
+                <p>
+                    Privacy-aware data work and an interest
+                    in reliable modern AI systems.
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     EXPERIENCE
+======================================================= -->
+
+<section class="section" id="experience">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow mono">
+                04 — Experience
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Learning by
+                    <br>
+                    shipping.
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="experience">
+
+
+            <article class="exp reveal">
+
+                <div class="exp-company">
+
+                    Privacient
+                    <br>
+                    Private Limited
+
+                </div>
+
+
+                <div>
+
+                    <div class="exp-role">
+                        Privacy Analyst Intern
+                    </div>
+
+
+                    <p>
+
+                        Worked around privacy and data-related
+                        analysis, developing practical exposure
+                        to responsible data handling and
+                        compliance-oriented work.
+
+                    </p>
+
+                </div>
+
+
+                <div class="exp-date mono">
+                    Feb 2026 — Aug 2026
+                </div>
+
+            </article>
+
+
+            <article class="exp reveal">
+
+                <div class="exp-company">
+
+                    Unified
+                    <br>
+                    Mentors
+
+                </div>
+
+
+                <div>
+
+                    <div class="exp-role">
+                        Machine Learning Intern
+                    </div>
+
+
+                    <p>
+
+                        Applied machine learning concepts through
+                        practical project work, strengthening
+                        experience across data preparation,
+                        modelling and analysis.
+
+                    </p>
+
+                </div>
+
+
+                <div class="exp-date mono">
+                    Jan 2025 — Apr 2025
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     ABOUT
+======================================================= -->
+
+<section class="section" id="about">
+
+    <div class="container">
+
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow mono">
+                05 — About
+            </div>
+
+        </div>
+
+
+        <div class="about-grid">
+
+
+            <div class="about-big reveal">
+
+                Curious by default.
+                <br>
+                Practical by choice.
+
+            </div>
+
+
+            <div class="about-copy reveal delay-1">
+
+                <p>
+
+                    I'm Samarth — an AI and Data Science-focused
+                    builder interested in the space where data
+                    becomes useful software.
+
+                </p>
+
+
+                <p>
+
+                    My projects span machine learning,
+                    computer vision, dashboards, data analysis
+                    and systems work. I enjoy taking an ambiguous
+                    problem, breaking it down and turning the
+                    result into something clear and usable.
+
+                </p>
+
+
+                <div class="links">
+
+                    <a
+                        href="https://github.com/Im-Sam04"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        GitHub ↗
+                    </a>
+
+
+                    <a
+                        href="https://www.linkedin.com/in/samarthgaikwad0408/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        LinkedIn ↗
+                    </a>
+
+
+                    <a
+                        href="https://www.instagram.com/sam__exists"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Instagram ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     CONTACT
+======================================================= -->
+
+<section class="contact" id="contact">
+
+    <div class="container">
+
+
+        <div class="contact-inner">
+
+
+            <div class="reveal">
+
+                <h2>
+
+                    Let's make
+                    <br>
+
+                    something
+                    <span>
+                        useful.
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="contact-right reveal delay-2">
+
+                <p>
+
+                    Have a project, opportunity or interesting
+                    problem? I'm open to conversations around AI,
+                    data, design and building things that matter.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+
+                    <a
+                        class="pill dark"
+                        href="https://wa.me/917020033430"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Start a conversation ↗
+                    </a>
+
+
+                    <a
+                        class="pill"
+                        href="mailto:hello@samarthgaikwad.com"
+                    >
+                        Email ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <span>
+            © 2026 Samarth Gaikwad
+        </span>
+
+        <span>
+            AI / DATA / DESIGN
+        </span>
+
+        <span>
+            Pune, India
+        </span>
+
+    </div>
+
+</footer>
+
+
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
+
+<script>
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+const cursor = document.querySelector(".cursor");
+
+if (
+    cursor &&
+    window.matchMedia("(pointer:fine)").matches
+) {
+
+    window.addEventListener("mousemove", function(event) {
+
+        cursor.style.left = event.clientX + "px";
+
+        cursor.style.top = event.clientY + "px";
+
+    });
+
+
+    document
+        .querySelectorAll("a, button, .work, .service, .cap")
+        .forEach(function(element) {
+
+            element.addEventListener(
+                "mouseenter",
+                function() {
+
+                    cursor.classList.add("active");
+
+                }
+            );
+
+
+            element.addEventListener(
+                "mouseleave",
+                function() {
+
+                    cursor.classList.remove("active");
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer = new IntersectionObserver(
+
+    function(entries) {
+
+        entries.forEach(function(entry) {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("show");
+
+            }
+
+        });
+
+    },
+
+    {
+        threshold: 0.12
+    }
+
+);
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(function(element) {
+
+        observer.observe(element);
+
+    });
+
+
+/* =========================================================
+   ACTIVE NAV
+========================================================= */
+
+const sections = document.querySelectorAll(
+    "section[id]"
+);
+
+const navLinks = document.querySelectorAll(
+    ".nav-links a[href^='#']"
+);
+
+
+const navObserver = new IntersectionObserver(
+
+    function(entries) {
+
+        entries.forEach(function(entry) {
+
+            if (entry.isIntersecting) {
+
+                navLinks.forEach(function(link) {
+
+                    link.classList.remove("active");
+
+                });
+
+
+                const active = document.querySelector(
+                    `.nav-links a[href="#${entry.target.id}"]`
+                );
+
+
+                if (active) {
+
+                    active.classList.add("active");
+
+                }
+
+            }
+
+        });
+
+    },
+
+    {
+        rootMargin: "-35% 0px -55% 0px"
+    }
+
+);
+
+
+sections.forEach(function(section) {
+
+    navObserver.observe(section);
+
+});
+
+</script>
+
+</body>
+</html>
